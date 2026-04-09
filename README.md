@@ -3,9 +3,11 @@ SHELF STUDY v1.0.0
 
 FINISHED:
 = shelf design and shelf title (CSS + HTML)
+= Shelf System added as well as customizable shelf titles.
 
 
 TO DO:
+Shelf menu (opening shelves, closing shelves)
 Adding and removing books
 Adding and removing shelves
 Opening and closing books

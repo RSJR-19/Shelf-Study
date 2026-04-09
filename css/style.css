@@ -67,6 +67,20 @@ body, html{
     display: flex;
     justify-content: center;
     align-items: center;
+    
+}
+
+.shelf-title-text-container{
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    text-align: center;
 }
 
 .shelf-title-text{
@@ -83,6 +97,17 @@ body, html{
     opacity: 0;
 }
 
+.shelf-menu-btn{
+    position: absolute;
+    height: 80%;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: 10px black solid;
+    background-color: yellow;
+    left: 90%;
+    top: -20%;
+    
+}
 
 .row{
     height: 34%;

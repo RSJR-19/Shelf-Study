@@ -54,7 +54,7 @@ shelfTitleInput.addEventListener('input', ()=>{
 
 shelfTitleInput.addEventListener('focus', ()=>{
     if(shelfTitleText.innerHTML === 'Untitled'){
-        shelfTitleText.innerHTML = 'Type Shelf Title'
+        shelfTitleText.innerHTML = 'Enter your shelf name';
     }
     else{
         shelfTitleInput.value = shelfTitleText.innerHTML.trim();
