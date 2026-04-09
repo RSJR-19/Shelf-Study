@@ -1,8 +1,10 @@
 *, *::after, *::before{
     box-sizing: border-box ;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body, html{
+    font-size: 16px;
     padding: 0;
     margin: 0;
     height: 100dvh;
@@ -11,6 +13,7 @@ body, html{
     display: flex;
     justify-content: center;
     align-items: flex-end;
+
 }
 
 .shelf{
@@ -43,7 +46,7 @@ body, html{
     border: 5px black solid;
     overflow-y: auto;
     
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .inner-shelf::-webkit-scrollbar{
@@ -51,15 +54,33 @@ body, html{
 }
 
 .shelf-title{
+    position: relative;
     max-width: 650px;
     border-radius: 10px;
     top: 0;
-    transform: translateY(-120%);
+    transform: translateY(-130%);
     width: 110%;
     height: max(10cqw, 10cqh);
     background-color: white;
     border: 10px black solid;
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shelf-title-text{
+    padding: 0;
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+
+}
+
+#shelfTitleInput{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
 }
 
 

@@ -1,0 +1,1 @@
+const shelfTitle = document.getElementById('shelfTitle');
