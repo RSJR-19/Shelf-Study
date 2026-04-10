@@ -10,7 +10,10 @@ const menuHandle = document.getElementById('menuHandle');
 const innerList = document.getElementById('innerList');
 const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 
-const addShelfScreen = document.getElementById('addShelfScreen');
+
+
+
+
 
 
 
@@ -42,8 +45,10 @@ const shelfSystem = new ShelfSystem();
 const shelf1 = new Shelf('Untitled');
 shelfSystem.addShelf(shelf1);
 
-function displayAddShelfScreen(){
-    addShelfScreen.classList.toggle('open');
+function addNewShelf(){
+    shelfSystem.shelves.push(new Shelf('Untitled'));
+    displayShelvesInCatalog();
+    innerList.scrollTop = innerList.scrollHeight;
 
 }
 
@@ -57,13 +62,14 @@ function makeAddShelfButton(){
     add_shelf_containter.className = 'catalog-item';
     add_shelf_content.className = 'catalog-content';
     add_shelf_content.id = 'addShelfContentBtn';
+    add_shelf_containter.id = 'addShelfContainer';
 
     add_shelf_content.appendChild(add_shelf_content_text);
     add_shelf_containter.appendChild(add_shelf_content);
     innerList.appendChild(add_shelf_containter);
 
     add_shelf_content.addEventListener('click', ()=>{
-        displayAddShelfScreen();
+        addNewShelf();
     });
 
 }
@@ -77,13 +83,16 @@ function displayShelvesInCatalog(){
         const shelf_container = document.createElement('div');
         const shelf_content = document.createElement('div');
         const shelf_title = document.createElement('p');
+        const delete_shelf_btn = document.createElement('button');
 
         shelf_title.innerHTML = shelf.title
 
         shelf_container.className = "catalog-item";
         shelf_content.className = "catalog-content";
+        delete_shelf_btn.className = "delete-shelf-btn";
 
         shelf_content.appendChild(shelf_title);
+        shelf_content.appendChild(delete_shelf_btn);
         shelf_container.appendChild(shelf_content);
         innerList.appendChild(shelf_container);
 
@@ -130,6 +139,8 @@ shelfTitleInput.addEventListener('focus', ()=>{
 menuHandle.addEventListener('click', ()=>{
     displayShelvesInCatalog();
     shelfMenu.classList.toggle('open');
+    innerList.scrollTop = 0;
+    
 })
 
 

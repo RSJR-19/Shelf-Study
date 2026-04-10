@@ -100,6 +100,7 @@ body, html{
     height: 100%;
     width: 100%;
     opacity: 0;
+    
 }
 
 .shelf-menu-btn{
@@ -179,17 +180,8 @@ body, html{
 
 }
 
-.add-shelf-screen{
-    height: 100%;
-    width: 100%;
-    background-color: red;
-    position: absolute;
-    top: 0;
-    left: 100%;
 
-    transition: all 0.5s ease-out;
 
-}
 
 .inner-list{
     height: 100%;
@@ -198,6 +190,7 @@ body, html{
     border-top: 0;
     border-bottom: 0;
     overflow-y: auto;
+   
 }
 
 .inner-list::-webkit-scrollbar{
@@ -223,8 +216,10 @@ body, html{
 
 }
 
+
 .catalog-content{
     container-type: inline-size;
+    position: relative;
     height: 100%;
     width: 100%;
     border-radius: 10px;
@@ -237,8 +232,21 @@ body, html{
     align-items: center;
     overflow-wrap: anywhere;
     padding: 10px;
-    overflow-y: auto;
+    
 
+}
+
+.delete-shelf-btn{
+    height: 50%;
+    max-height: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: 5px black solid;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(30%, -30%);
 }
 
 .catalog-content::-webkit-scrollbar{
@@ -252,6 +260,8 @@ body, html{
     border-top: 10px black solid;
 
 }
+
+
 
 .menu-handle{
     transform: translateY(100%);
