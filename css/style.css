@@ -60,8 +60,8 @@ body, html{
     top: 0;
     transform: translateY(-130%);
     width: 110%;
-    height: max(10cqw, 10cqh);
-    max-height: 130px;
+    height: max(12cqw, 12cqh);
+    max-height: 100px;
     
     background-color: white;
     border: 10px black solid;
@@ -73,9 +73,7 @@ body, html{
 }
 
 .shelf-title-text-container{
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    container-type: inline-size;
     height: 100%;
     width: 100%;
     display: flex;
@@ -83,12 +81,17 @@ body, html{
     align-items: center;
     overflow-y: auto;
     text-align: center;
+    overflow-wrap: anywhere;
+    padding: 10px;
+    overflow-y: auto;
+    
 }
 
 .shelf-title-text{
     padding: 0;
     margin: 0;
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: clamp(1.5rem, 1cqi, 2.5rem);
+    
 
 }
 
@@ -168,11 +171,23 @@ body, html{
 .main-inner-shelf{
     height: 80%;
     width: 100%;
-    
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+    overflow: hidden;
+
+}
+
+.add-shelf-screen{
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    position: absolute;
+    top: 0;
+    left: 100%;
+
+    transition: all 0.5s ease-out;
 
 }
 
@@ -198,23 +213,36 @@ body, html{
     
 }
 
-#addShelfCatalog{
+#addShelfContentBtn{
     background-color: gray;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: clamp(1.5rem, 1.5cqi, 2.5rem);
     font-weight: bold;
 
 }
 
 .catalog-content{
+    container-type: inline-size;
     height: 100%;
     width: 100%;
     border-radius: 10px;
     background-color: white;
     border: 5px black solid;
+    font-size: clamp(1.5rem, 1.5cqi, 2.5rem);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-wrap: anywhere;
+    padding: 10px;
+    overflow-y: auto;
 
+}
+
+.catalog-content::-webkit-scrollbar{
+    display: none;
 }
 
 .details-inner-shelf{
@@ -241,3 +269,6 @@ body, html{
     transform: translateY(0%);
 }
 
+.add-shelf-screen.open{
+    left: 0;
+}
