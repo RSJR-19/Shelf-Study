@@ -29,7 +29,21 @@ class ShelfSystem{
         
     }
 
-    
+    checkActiveShelf(){
+        let active_found = false;
+        this.shelves.forEach(shelf =>{
+            if(shelf.is_active){
+                active_found = true;
+
+            }
+
+        });
+        if(!active_found){
+            this.shelves[0].is_active = true;
+            active_found = true;
+
+        };
+    };
 
     addShelf(shelf){
         this.shelves.push(shelf);
@@ -43,6 +57,8 @@ class Shelf{
         this.index_position = 0;
         this.is_active = false;
     }
+
+
 
 
 }
@@ -92,6 +108,7 @@ function setAsActive(shelf){
 
 
 function displayShelvesInCatalog(){
+    shelfSystem.checkActiveShelf();
     shelf_tracker = 0;
     innerList.innerHTML = "";
     makeAddShelfButton();
