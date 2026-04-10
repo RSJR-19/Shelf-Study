@@ -41,6 +41,7 @@ class Shelf{
         this.title = title;
         this.books = [];
         this.index_position = 0;
+        this.is_active = false;
     }
 
 
@@ -79,13 +80,16 @@ function makeAddShelfButton(){
 
 }
 
-function deleteShelf(){
-    let confirmation = confirm(`Are you sure you want to delete this shelf?\nTitle: ${shelf.title}\nBooks: ${shelf.books.length}`);
+function setAsActive(shelf){
+    shelfSystem.shelves.forEach(stored_shelf =>{
+        stored_shelf.is_active = false;
 
-            if(confirmation){
-                shelfSystem.shelves.splice(shelf.index_position, 1);
-            }
+    });
+    shelf.is_active = true;
+
 }
+
+
 
 function displayShelvesInCatalog(){
     shelf_tracker = 0;
@@ -108,10 +112,22 @@ function displayShelvesInCatalog(){
         shelf_content.className = "catalog-content";
         delete_shelf_btn.className = "delete-shelf-btn";
 
+        if(shelf.is_active){
+            shelf_content.style.backgroundColor = 'orange';
+        }
+        else{
+            shelf_content.style.backgroundColor = 'white';
+        }
+
         shelf_content.appendChild(shelf_title);
         shelf_content.appendChild(delete_shelf_btn);
         shelf_container.appendChild(shelf_content);
         innerList.appendChild(shelf_container);
+
+        shelf_content.addEventListener('click', ()=>{
+            setAsActive(shelf);
+            displayShelvesInCatalog();
+        });
 
         delete_shelf_btn.addEventListener('click', ()=>{
             let confirmation = confirm(`Are you sure you want to delete this shelf?\nTitle: ${shelf.title}\nBooks: ${shelf.books.length}`);
@@ -172,7 +188,7 @@ shelfTitleInput.addEventListener('focus', ()=>{
 menuHandle.addEventListener('click', ()=>{
     displayShelvesInCatalog();
     shelfMenu.classList.toggle('open');
-    innerList.scrollTop = 0;
+    
     
 })
 
