@@ -49,18 +49,48 @@ class ShelfSystem{
 class Shelf{
     constructor(title){
         this.title = title;
+        this.rows = 3;
         this.books = [];
+        this.books_grouped = [];
+        
         this.index_position = 0;
         this.is_active = false;
     }
 
+    sortBookTitles(){
+        this.books.sort((a,b) => a.title.localeCompare(b.title));
 
+    }
 
+    groupBooksByRow(){
+        let current_row;
+        for(let i = 0; i < this.books.length; i++){
+            if(i % 4 === 0){
+                current_row = [];
+            }
+            else if(i % 4 === 3){
+                this.books_grouped.push(current_row);
+            }
+            current_row.push(this.books[i]);
+        }
+        this.books_grouped.push(current_row);
 
+        console.log(this.books_grouped)
+
+    }
+
+    
+}
+
+class Book{
+    constructor(title){
+        this.title = title;
+    }
 }
 
 const shelfSystem = new ShelfSystem();
 let shelf1 = new Shelf('Untitled');
+shelf1.groupBooksByRow()
 
 shelfSystem.addShelf(shelf1);
 
