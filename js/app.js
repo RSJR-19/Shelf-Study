@@ -105,9 +105,11 @@ function setAsActive(shelf){
 
 }
 
-function displaySelectedShelf(shelf){
-    shelf1 = shelf;
-    shelfTitleText.innerHTML = shelf.title;
+function displaySelectedShelf(){
+    shelf1 = shelfSystem.shelves.find(s => s.is_active);
+    
+    console.log(shelf1)
+    shelfTitleText.innerHTML = shelf1.title;
 
     shelfTitleInput.value = "";
    
@@ -164,6 +166,7 @@ function displayShelvesInCatalog(){
                 if(confirmation){
                     shelfSystem.shelves.splice(shelf.index_position, 1);
                     displayShelvesInCatalog();
+                    displaySelectedShelf();
                 }
             }
             else{
