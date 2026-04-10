@@ -11,15 +11,7 @@ const innerList = document.getElementById('innerList');
 const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 
 let shelf_tracker = "";
-
-
-
-
-
-
-
-
-
+let active_index = "";
 
 
 
@@ -30,19 +22,23 @@ class ShelfSystem{
     }
 
     checkActiveShelf(){
+        active_index = 0;
+        let counter = 0;
         let active_found = false;
         this.shelves.forEach(shelf =>{
             if(shelf.is_active){
                 active_found = true;
+                active_index = counter;
 
             }
-
+            counter++;
         });
         if(!active_found){
             this.shelves[0].is_active = true;
             active_found = true;
 
         };
+
     };
 
     addShelf(shelf){
@@ -64,8 +60,12 @@ class Shelf{
 }
 
 const shelfSystem = new ShelfSystem();
-const shelf1 = new Shelf('Untitled');
+let shelf1 = new Shelf('Untitled');
+
 shelfSystem.addShelf(shelf1);
+
+
+
 
 function addNewShelf(){
     shelfSystem.shelves.push(new Shelf('Untitled'));
@@ -106,7 +106,11 @@ function setAsActive(shelf){
 }
 
 function displaySelectedShelf(shelf){
+    shelf1 = shelf;
     shelfTitleText.innerHTML = shelf.title;
+
+    shelfTitleInput.value = "";
+   
 
 }
 
@@ -177,18 +181,18 @@ function displayShelvesInCatalog(){
 
 
 function checkShelfTitle(){
-    curr_title = shelfTitleInput.value;
+    let curr_title = shelfTitleInput.value.trim();
 
-    if(curr_title === " " || curr_title === ""){
-        shelfTitleInput.value = "";
+    if(curr_title === "" ){
+        
         shelf1.title = 'Untitled';
         shelfTitleText.innerHTML = 'Untitled';
-        console.log(shelfSystem.shelves[0].title)
+        
 
     }
     else{
         shelf1.title = curr_title;
-        console.log(shelfSystem.shelves[0].title)
+        
     }
     
 }
@@ -204,7 +208,7 @@ shelfTitleInput.addEventListener('focus', ()=>{
         shelfTitleText.innerHTML = 'Enter your shelf name';
     }
     else{
-        shelfTitleInput.value = shelfTitleText.innerHTML.trim();
+        shelfTitleInput.value = shelf1.title.trim();
     }
 
 }
