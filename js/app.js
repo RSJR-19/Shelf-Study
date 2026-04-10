@@ -10,6 +10,8 @@ const menuHandle = document.getElementById('menuHandle');
 const innerList = document.getElementById('innerList');
 const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 
+const innerShelf = document.getElementById('innerShelf');
+
 let shelf_tracker = "";
 let active_index = "";
 
@@ -50,8 +52,8 @@ class Shelf{
     constructor(title){
         this.title = title;
         this.rows = 3;
-        this.books = [];
-        this.books_grouped = [];
+        this.books = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
+        this.books_grouped = [[],[],[]];
         
         this.index_position = 0;
         this.is_active = false;
@@ -63,20 +65,37 @@ class Shelf{
     }
 
     groupBooksByRow(){
-        let current_row;
-        for(let i = 0; i < this.books.length; i++){
-            if(i % 4 === 0){
-                current_row = [];
-            }
-            else if(i % 4 === 3){
-                this.books_grouped.push(current_row);
-            }
-            current_row.push(this.books[i]);
+    let group_pointer = 0;
+
+    let minimum_row = 3;
+    let required_rows = Math.ceil(this.books.length / 4);
+    let total_rows = Math.max(minimum_row, required_rows);
+
+    this.books_grouped = Array.from({ length: total_rows }, () => []);
+
+    for(let i = 0; i < this.books.length; i++){
+        if(this.books_grouped[group_pointer].length < 4){
+            this.books_grouped[group_pointer].push(this.books[i]);
+        } else {
+            group_pointer++;
+            this.books_grouped[group_pointer].push(this.books[i]);
         }
-        this.books_grouped.push(current_row);
+    }
+    console.log(this.books_grouped)
+    }
 
-        console.log(this.books_grouped)
+    displayRowOfBooks(){
+        this.groupBooksByRow();
+        innerShelf.innerHTML = "";
 
+        this.books_grouped.forEach(row_of_book =>{
+            const row_created = document.createElement('div');
+
+            row_created.className = 'row';
+            innerShelf.appendChild(row_created);
+
+
+        })
     }
 
     
@@ -91,6 +110,7 @@ class Book{
 const shelfSystem = new ShelfSystem();
 let shelf1 = new Shelf('Untitled');
 shelf1.groupBooksByRow()
+shelf1.displayRowOfBooks()
 
 shelfSystem.addShelf(shelf1);
 
@@ -137,6 +157,8 @@ function setAsActive(shelf){
 
 function displaySelectedShelf(){
     shelf1 = shelfSystem.shelves.find(s => s.is_active);
+
+    shelf1.displayRowOfBooks();
     
     console.log(shelf1)
     shelfTitleText.innerHTML = shelf1.title;
