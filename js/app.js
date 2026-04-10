@@ -2,8 +2,10 @@ const shelfTitle = document.getElementById('shelfTitle');
 const shelfTitleInput = document.getElementById('shelfTitleInput');
 const shelfTitleText = document.getElementById('shelfTitleText');
 const shelfMenuBtn = document.getElementById('shelfMenuBtn');
-const shelfMenu = document.getElementById('shelfMenu');
+
 const shelfMenuScreen = document.getElementById('shelfMenuScreen');
+const shelfMenu = document.getElementById('shelfMenu');
+const menuHandle = document.getElementById('menuHandle');
 
 
 
@@ -69,27 +71,13 @@ shelfTitleInput.addEventListener('focus', ()=>{
 }
 );
 
-shelfMenuBtn.addEventListener('click', ()=>{
-    shelfMenuScreen.style.display = 'flex';
-    setTimeout(()=>{
-        console.log('hi')
-        shelfMenu.classList.toggle('reveal');
-
-    }, 50);
-});
-
-shelfMenuScreen.addEventListener('click', (e)=>{
-    if(e.target === shelfMenuScreen){
-        shelfMenu.classList.toggle('reveal');
-    setTimeout(()=>{
-        console.log('hi')
-        shelfMenuScreen.style.display = 'none';
-
-    }, 500);
-
-    }
-    
-
+menuHandle.addEventListener('click', ()=>{
+    console.log('hi')
+    shelfMenu.classList.toggle('open');
 })
+
+
+
+
 
 

@@ -7,7 +7,7 @@ FINISHED:
 
 
 TO DO:
-Shelf menu (opening shelves, closing shelves)
+Shelf/catalog menu (opening shelves, closing shelves)
 Adding and removing books
 Adding and removing shelves
 Opening and closing books

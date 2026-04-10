@@ -61,6 +61,8 @@ body, html{
     transform: translateY(-130%);
     width: 110%;
     height: max(10cqw, 10cqh);
+    max-height: 130px;
+    
     background-color: white;
     border: 10px black solid;
     position: absolute;
@@ -125,47 +127,45 @@ body, html{
     width: 100%;
     background-color: rgba(255, 255, 0, 0.279);
     position: absolute;
-    display: none;
-    justify-content: center;
+    display: flex;
+    justify-content: flex-start;
     align-items: center;
-    user-select: none;
+    flex-direction: column;
+    
 }
 
 .shelf-menu{
+    transform: translateY(-100%);
     position: absolute;
-    top: -100%;
-    max-width: 650px;
-    margin: 0;
-    padding: 0;
-    width: 90%;
+    height: 80dvh;
+    max-width: 620px;
     border-radius: 0 0 10px 10px;
-    border: 10px black solid;
-    border-top: 0px black solid;
-    height: 80%;
+    border:10px black solid;
+    border-top: 0;
     background-color: white;
+    width: 90%;
+    margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
+    top: 0;
 
     transition: all 0.5s ease-out;
 }
 
 .menu-handle{
-    position: absolute;
-    bottom: 0;
-    transform: translateY(110%);
-    max-height: 50px ;
-    height: 10%;
-    
+    transform: translateY(100%);
+    height: max(5cqw, 5cqh);
+    max-height: 40px;
+    max-width: 150px;
     width: 50%;
-    border-radius: 0 0 10px 10px;
     background-color: black;
-    border: 10px black solid;
-    display: flex;
-    justify-content: center;
-}
-
-.shelf-menu.reveal{
-    top: 0;
+    border-radius: 0 0 10px 10px;
+    margin: 0;
 
 }
+
+.shelf-menu.open{
+    transform: translateY(0%);
+}
+
