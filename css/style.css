@@ -153,6 +153,78 @@ body, html{
     transition: all 0.5s ease-out;
 }
 
+.inner-shelf-menu{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+
+.main-inner-shelf{
+    height: 80%;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+.inner-list{
+    height: 100%;
+    width: 90%;
+    border: 10px solid black;
+    border-top: 0;
+    border-bottom: 0;
+    overflow-y: auto;
+}
+
+.inner-list::-webkit-scrollbar{
+    display: none;
+}
+
+.catalog-item{
+    width: 100%;
+    height: 34%;
+
+    padding: 20px;
+    flex-shrink: 0;
+    
+}
+
+#addShelfCatalog{
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: bold;
+
+}
+
+.catalog-content{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    background-color: white;
+    border: 5px black solid;
+
+}
+
+.details-inner-shelf{
+    height: 20%;
+    width: 100%;
+    
+    border-top: 10px black solid;
+
+}
+
 .menu-handle{
     transform: translateY(100%);
     height: max(5cqw, 5cqh);
