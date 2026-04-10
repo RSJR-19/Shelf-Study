@@ -10,6 +10,8 @@ const menuHandle = document.getElementById('menuHandle');
 const innerList = document.getElementById('innerList');
 const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 
+let shelf_tracker = "";
+
 
 
 
@@ -24,6 +26,7 @@ const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 class ShelfSystem{
     constructor(){
         this.shelves = [];
+        
     }
 
     
@@ -36,6 +39,8 @@ class ShelfSystem{
 class Shelf{
     constructor(title){
         this.title = title;
+        this.books = [];
+        this.index_position = 0;
     }
 
 
@@ -74,12 +79,24 @@ function makeAddShelfButton(){
 
 }
 
+function deleteShelf(){
+    let confirmation = confirm(`Are you sure you want to delete this shelf?\nTitle: ${shelf.title}\nBooks: ${shelf.books.length}`);
+
+            if(confirmation){
+                shelfSystem.shelves.splice(shelf.index_position, 1);
+            }
+}
+
 function displayShelvesInCatalog(){
+    shelf_tracker = 0;
     innerList.innerHTML = "";
     makeAddShelfButton();
     const available_shelf = shelfSystem.shelves;
 
     available_shelf.forEach(shelf => {
+        shelf.index_position = shelf_tracker;
+        shelf_tracker++;
+        
         const shelf_container = document.createElement('div');
         const shelf_content = document.createElement('div');
         const shelf_title = document.createElement('p');
@@ -96,6 +113,22 @@ function displayShelvesInCatalog(){
         shelf_container.appendChild(shelf_content);
         innerList.appendChild(shelf_container);
 
+        delete_shelf_btn.addEventListener('click', ()=>{
+            let confirmation = confirm(`Are you sure you want to delete this shelf?\nTitle: ${shelf.title}\nBooks: ${shelf.books.length}`);
+            if(shelfSystem.shelves.length > 1){
+                if(confirmation){
+                    shelfSystem.shelves.splice(shelf.index_position, 1);
+                    displayShelvesInCatalog();
+                }
+            }
+            else{
+                alert('You cannot delete your last shelf!');
+                return
+            }
+
+
+
+        })
 
     });
 
