@@ -105,6 +105,11 @@ function setAsActive(shelf){
 
 }
 
+function displaySelectedShelf(shelf){
+    shelfTitleText.innerHTML = shelf.title;
+
+}
+
 
 
 function displayShelvesInCatalog(){
@@ -144,6 +149,9 @@ function displayShelvesInCatalog(){
         shelf_content.addEventListener('click', ()=>{
             setAsActive(shelf);
             displayShelvesInCatalog();
+            shelfMenu.classList.toggle('open');
+            displaySelectedShelf(shelf);
+            
         });
 
         delete_shelf_btn.addEventListener('click', ()=>{
