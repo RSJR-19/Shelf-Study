@@ -162,15 +162,15 @@ class Book{
 }
 
 const shelfSystem = new ShelfSystem();
-let shelf1 = new Shelf('Untitled');
+const shelf = new Shelf('Untitled');
 
 
-shelf1.groupBooksByRow()
-shelf1.displayRowOfBooks()
-shelf1.displayBooksPerRow();
+shelf.groupBooksByRow()
+shelf.displayRowOfBooks()
+shelf.displayBooksPerRow();
 
 
-shelfSystem.addShelf(shelf1);
+shelfSystem.addShelf(shelf);
 
 
 function displayAddBookScreen(){
@@ -225,16 +225,15 @@ function setAsActive(shelf){
 }
 
 function displaySelectedShelf(){
+    const shelf = shelfSystem.getActiveShelf();
+    
 
-    shelf1 = shelfSystem.shelves.find(s => s.is_active);
+    shelf.displayRowOfBooks();
+    shelf.displayBooksPerRow();
 
-    shelf1.displayRowOfBooks();
-    shelf1.displayBooksPerRow();
+    
 
-    console.log(shelf1.books)
-
-    shelfTitleText.textContent = shelf1.title;
-
+    shelfTitleText.textContent = shelf.title;
     shelfTitleInput.value = "";
    
 
@@ -280,7 +279,7 @@ function displayShelvesInCatalog(){
             setAsActive(shelf);
             displayShelvesInCatalog();
             shelfMenu.classList.toggle('open');
-            displaySelectedShelf(shelf);
+            displaySelectedShelf();
             
         });
 
@@ -309,16 +308,17 @@ function displayShelvesInCatalog(){
 
 function checkShelfTitle(){
     let curr_title = shelfTitleInput.value.trim();
+    const shelf = shelfSystem.getActiveShelf()
 
     if(curr_title === "" ){
         
-        shelf1.title = 'Untitled';
+        shelf.title = 'Untitled';
         shelfTitleText.textContent = 'Untitled';
         
 
     }
     else{
-        shelf1.title = curr_title;
+        shelf.title = curr_title;
         
     }
     
@@ -331,11 +331,12 @@ shelfTitleInput.addEventListener('input', ()=>{
 });
 
 shelfTitleInput.addEventListener('focus', ()=>{
+    const shelf = shelfSystem.getActiveShelf();
     if(shelfTitleText.textContent === 'Untitled'){
         shelfTitleText.textContent = 'Enter your shelf name';
     }
     else{
-        shelfTitleInput.value = shelf1.title.trim();
+        shelfTitleInput.value = shelf.title.trim();
     }
 
 }
@@ -379,6 +380,7 @@ addBookExitBtn.addEventListener('click', ()=>{
 })
 
 saveBookBtn.addEventListener('click', ()=>{
+    const shelf = shelfSystem.getActiveShelf();
     if(bookTitleInput.value.trim() === ""){
         alert('Book title cannot be empty.')
         bookTitleInput.focus()
@@ -387,10 +389,10 @@ saveBookBtn.addEventListener('click', ()=>{
         alert('Book color is required. Please select one.')
     }
     else{
-        alert(`${bookTitleInput.value} added to ${shelf1.title}!`);
+        alert(`${bookTitleInput.value} added to ${shelf.title}!`);
         let new_book = new Book(bookTitleInput.value.trim());
         new_book.color = new_color;
-        shelf1.addBook(new_book);
+        shelf.addBook(new_book);
         addBookScreen.classList.toggle('reveal');
         displaySelectedShelf();
     }

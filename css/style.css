@@ -150,6 +150,7 @@ body, html{
     border-top: 5px black solid;
     border-bottom: 5px black solid;
     margin-bottom: 10px;
+    display: flex;
 }
 
 .shelf-menu-screen{
