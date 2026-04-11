@@ -13,6 +13,7 @@ body, html{
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    overflow: hidden;
 
 }
 
@@ -303,7 +304,7 @@ body, html{
 #addBookScreen{
    height: 100%;
    width: 100%;
-   background-color: rgba(255, 255, 0, 0.277);
+   background-color: rgba(255, 255, 0, 0.311);
    position: absolute;
 
    display: flex;
@@ -387,12 +388,32 @@ body, html{
     text-align: center;
     padding: 10px;
     
-
 }
 
 #bookCoverText{
     font-size: max(5cqw, 5cqh);
     font-weight: bold;
+}
+
+.add-button-bar{
+    width: 100%;
+    position: absolute;
+    height: 15%;
+    
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#saveBookBtn{
+    height: 60%;
+    width: 40%;
+    border-radius: 10px;
+    border: 5px black solid;
+
+
 }
 
 .shelf-menu.open{

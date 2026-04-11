@@ -19,6 +19,7 @@ const addBookExitBtn = document.getElementById('addBookExitBtn');
 const bookTitleInput = document.getElementById('bookTitleInput');
 const bookCover = document.getElementById('bookCover');
 const bookCoverText = document.getElementById('bookCoverText');
+const saveBookBtn = document.getElementById('saveBookBtn');
 
 
 let shelf_tracker = "";
@@ -150,6 +151,7 @@ class Shelf{
                 }
                 else{
                     created_book.className = "book";
+                    created_book.style.backgroundColor = book.color;
                 }
                 target_row.appendChild(created_book);
             }
@@ -163,6 +165,7 @@ class Shelf{
 class Book{
     constructor(title){
         this.title = title;
+        this.color = "";
     }
 }
 
@@ -180,6 +183,10 @@ shelfSystem.addShelf(shelf1);
 
 function displayAddBookScreen(){
     addBookScreen.classList.toggle('reveal');
+    bookTitleInput.value = "";
+    bookCoverText.textContent = 'Title';
+    new_color = "";
+    bookCover.style.backgroundColor = 'white';
     
 }
 
@@ -377,6 +384,24 @@ bookTitleInput.addEventListener('input', ()=>{
 
 addBookExitBtn.addEventListener('click', ()=>{
     addBookScreen.classList.toggle('reveal');
+})
+
+saveBookBtn.addEventListener('click', ()=>{
+    if(bookTitleInput.value.trim() === ""){
+        alert('Book title cannot be empty.')
+        bookTitleInput.focus()
+    }
+    else if(!new_color){
+        alert('Book color is required. Please select one.')
+    }
+    else{
+        alert(`${bookTitleInput.value} added to ${shelf1.title}!`);
+        let new_book = new Book(bookTitleInput.value.trim());
+        new_book.color = new_color;
+        shelf1.addBook(new_book);
+        addBookScreen.classList.toggle('reveal');
+        displaySelectedShelf();
+    }
 })
 
 
