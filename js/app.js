@@ -66,6 +66,7 @@ class Shelf{
             this.books.push(new Book('bookAdder'));
 
         }
+        
     }
 
     addBook(book){
@@ -163,6 +164,7 @@ class Book{
 
 const shelfSystem = new ShelfSystem();
 const shelf = new Shelf('Untitled');
+shelf.is_active = true;
 
 
 shelf.groupBooksByRow()
@@ -171,6 +173,7 @@ shelf.displayBooksPerRow();
 
 
 shelfSystem.addShelf(shelf);
+console.log(shelfSystem.shelves[0].title);
 
 
 function displayAddBookScreen(){
