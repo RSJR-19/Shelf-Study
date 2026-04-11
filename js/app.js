@@ -61,13 +61,7 @@ class Shelf{
         this.is_active = false;
     }
 
-    addBookButtonToBooks(){
-        if(this.books.length === 0){
-            this.books.push(new Book('bookAdder'));
-
-        }
-        
-    }
+    
 
     addBook(book){
         this.books.push(book);
@@ -75,7 +69,7 @@ class Shelf{
 
     
     sortBookTitles(){
-        let add_book_button = this.books.pop();
+        let add_book_button = this.books.shift();
         this.books.sort((a,b) => a.title.localeCompare(b.title));
         this.books.push(add_book_button);
 
@@ -85,7 +79,7 @@ class Shelf{
     let group_pointer = 0;
 
     let minimum_row = 3;
-    let required_rows = Math.ceil(this.books.length / 4);
+    let required_rows = Math.ceil((this.books.length + 1) / 3);
     let total_rows = Math.max(minimum_row, required_rows);
 
     this.books_grouped = Array.from({ length: total_rows }, () => []);
@@ -103,7 +97,6 @@ class Shelf{
 
     displayRowOfBooks(){
         let row_index = 0;
-        this.addBookButtonToBooks();
         this.groupBooksByRow();
 
         innerShelf.textContent = "";
@@ -123,34 +116,40 @@ class Shelf{
     }
 
     displayBooksPerRow(){
-        
+
         for(let shelf = 0; shelf < this.books_grouped.length; shelf++){
             this.books_grouped[shelf].forEach(book=>{
+        
                 let target_row = document.getElementById(`row${shelf}`);
                 const created_book = document.createElement('div');
+                created_book.className = "book";
+                created_book.style.backgroundColor = book.color;
 
-                if(book.title === "bookAdder"){
-                    let add_book_btn_text = document.createElement('p');
-                    
-                    add_book_btn_text.innerHTML= "Add Book"
-                    created_book.id = "addBook";
-                    created_book.className = "book";
-
-                    created_book.appendChild(add_book_btn_text);
-
-                    created_book.addEventListener('click', ()=>{
-                        displayAddBookScreen();
-                    });
-                }
-                else{
-                    created_book.className = "book";
-                    created_book.style.backgroundColor = book.color;
-                }
                 target_row.appendChild(created_book);
             }
             )
         }
+        for(let i = 0; i < this.books_grouped.length;i++){
+            if(this.books_grouped[i].length !== 3){
+                let target_row = document.getElementById(`row${i}`);
+                const created_book = document.createElement('div');
+                created_book.id = 'addBook';
+
+                created_book.addEventListener('click', ()=> displayAddBookScreen());
+
+                target_row.appendChild(created_book);
+
+                return
+                
+                
+            }
+        }
+        
+        
+        
+        last_row.appendChild(add_book_button);
     }
+    
 
     
 }
