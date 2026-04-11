@@ -198,7 +198,10 @@ shelfSystem.addShelf(shelf);
 console.log(shelfSystem.shelves[0].title);
 
 function displayActiveBookScreen(){
-    addBookScreen.classList.toggle('reveal');
+    addBookScreen.style.display = 'flex';
+
+    setTimeout(()=>{
+        addBookScreen.classList.toggle('reveal');
 
     const shelf = shelfSystem.getActiveShelf();
     const selected_book = shelf.getActiveBook();
@@ -212,16 +215,25 @@ function displayActiveBookScreen(){
     viewBookBar.style.display = 'flex';
     viewBookBar.style.backgroundColor = selected_book.color;
 
+    }, 100)
+    
+
 }
 
 
 function displayAddBookScreen(){
-        viewBookBar.style.display = 'none';
+        addBookScreen.style.display = 'flex';
+
+        setTimeout(()=>{
+            viewBookBar.style.display = 'none';
         addBookScreen.classList.toggle('reveal');
         bookTitleInput.value = "";
         bookCoverText.textContent = 'Title';
         new_color = "";
         bookCover.style.backgroundColor = 'white';
+            
+        }, 100)
+        
 }
 
 
@@ -267,23 +279,24 @@ function setAsActive(shelf){
 }
 
 function displaySelectedShelf(){
-    const shelf = shelfSystem.getActiveShelf();
+    
+    
+        const shelf = shelfSystem.getActiveShelf();
     
 
-    shelf.displayRowOfBooks();
-    shelf.displayBooksPerRow();
+        shelf.displayRowOfBooks();
+        shelf.displayBooksPerRow();
 
-    
+        
 
-    shelfTitleText.textContent = shelf.title;
-    shelfTitleInput.value = "";
-   
-
+        shelfTitleText.textContent = shelf.title;
+        shelfTitleInput.value = "";
 }
 
 
 
 function displayShelvesInCatalog(){
+    addBookScreen.style.display = 'flex';
     shelfSystem.checkActiveShelf();
     shelf_tracker = 0;
     innerList.textContent = "";
@@ -420,6 +433,10 @@ bookTitleInput.addEventListener('input', ()=>{
 
 addBookExitBtn.addEventListener('click', ()=>{
     addBookScreen.classList.toggle('reveal');
+    setTimeout(()=>{
+        addBookScreen.style.display = 'none';
+
+    },500)
 })
 
 saveBookBtn.addEventListener('click', ()=>{
@@ -450,9 +467,12 @@ updateBtn.addEventListener('click', ()=>{
         bookTitleInput.focus()
     }
     else{
+        let title_before = active_book.title;
+        let color_before = active_book.color;
+
         active_book.color = new_color;
         active_book.title = bookTitleInput.value.trim();
-        alert(`${active_book.title} successfully updated!`);
+        alert(`Book successfully updated!\n\nTitle Changes:\n${title_before} => ${active_book.title}\n\nColor Changes:\n${color_before} => ${active_book.color}`);
 
         addBookScreen.classList.toggle('reveal');
         displaySelectedShelf();
