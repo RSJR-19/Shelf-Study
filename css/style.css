@@ -300,6 +300,79 @@ body, html{
 
 }
 
+#addBookScreen{
+   height: 100%;
+   width: 100%;
+   background-color: rgba(255, 255, 0, 0.277);
+   position: absolute;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+
+}
+
+#buttonInputBar{
+    max-width: 450px;
+    width: 90%;
+    border-radius: 10px;
+    background-color: white;
+    height: 15%;
+    border: 10px black solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    
+
+
+}
+
+#bookTitleInput{
+    position: relative;
+    width: 50%;
+    height: 50%;
+    border: 5px black solid;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+
+
+.color-input{
+    height: 40%;
+    aspect-ratio: 1/1;
+    background-color: lightcoral;
+    border-radius: 100%;
+    border: 5px black solid;
+}
+
+#bookCover{
+    container-type: inline-size;
+    max-width: 450px;
+    width: 90%;
+    height: 70%;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 10px black solid;
+    margin: 10px;
+    position: relative;
+    overflow-wrap: anywhere;
+    text-align: center;
+    padding: 10px;
+    
+
+}
+
+#bookCoverText{
+    font-size: max(5cqw, 5cqh);
+    font-weight: bold;
+}
+
 .shelf-menu.open{
     transform: translateY(0%);
 }

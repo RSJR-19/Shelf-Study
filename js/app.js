@@ -14,8 +14,15 @@ const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 
 const innerShelf = document.getElementById('innerShelf');
 
+const addBookScreen = document.getElementById('addBookScreen');
+const bookTitleInput = document.getElementById('bookTitleInput');
+const bookCover = document.getElementById('bookCover');
+const bookCoverText = document.getElementById('bookCoverText');
+
+
 let shelf_tracker = "";
 let active_index = "";
+let new_color = "";
 
 
 
@@ -135,6 +142,10 @@ class Shelf{
                     created_book.className = "book";
 
                     created_book.appendChild(add_book_btn_text);
+
+                    created_book.addEventListener('click', ()=>{
+                        displayAddBookScreen();
+                    });
                 }
                 else{
                     created_book.className = "book";
@@ -164,6 +175,11 @@ shelf1.displayBooksPerRow();
 
 
 shelfSystem.addShelf(shelf1);
+
+
+function displayAddBookScreen(){
+    
+}
 
 
 
@@ -268,7 +284,7 @@ function displayShelvesInCatalog(){
         });
 
         delete_shelf_btn.addEventListener('click', ()=>{
-            let confirmation = confirm(`Are you sure you want to delete this shelf?\nTitle: ${shelf.title}\nBooks: ${shelf.books.length}`);
+            let confirmation = confirm(`Are you sure you want to delete this shelf?\nTitle: ${shelf.title}\nBooks: ${shelf.books.length - 1}`);
             if(shelfSystem.shelves.length > 1){
                 if(confirmation){
                     shelfSystem.shelves.splice(shelf.index_position, 1);
@@ -331,6 +347,31 @@ menuHandle.addEventListener('click', ()=>{
     
 })
 
+function changeColor(color){
+    
+    switch(color){
+        case 0:
+            new_color = 'white';
+            break;
+        case 1:
+            new_color = 'lightcoral';
+            break;
+        case 2:
+            new_color = 'lime';
+            break;
+        case 3:
+            new_color = 'lightblue';
+            break;
+    }
+    bookCover.style.backgroundColor = new_color;
+    return new_color;
+}
+
+bookTitleInput.addEventListener('input', ()=>{
+    
+    bookCoverText.textContent = bookTitleInput.value;
+
+});
 
 
 
