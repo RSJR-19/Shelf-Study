@@ -116,16 +116,30 @@ body, html{
     
 }
 .book{
-    width: 25%;
+    container-type: inline-size;
+    width: 33.3%;
     height: 100%;
     background-color: white;
+    padding: 10px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-wrap: anywhere;
+    text-align: center;
+    
+    
 }
 
 #addBook{
-    width: 25%;
+    width: 33.3%;
     height: 100%;
     background-color: black;
+    color: white;
+    font-size: clamp(1.5rem, 1cqi, 2.5rem);
 }
+
+
 
 .row{
     height: 34%;

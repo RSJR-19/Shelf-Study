@@ -60,6 +60,13 @@ class Shelf{
         this.is_active = false;
     }
 
+    addBookButtonToBooks(){
+        if(this.books.length === 0){
+            this.books.push(new Book('bookAdder'));
+
+        }
+    }
+
     addBook(book){
         this.books.push(book);
     }
@@ -82,7 +89,7 @@ class Shelf{
     this.books_grouped = Array.from({ length: total_rows }, () => []);
 
     for(let i = 0; i < this.books.length; i++){
-        if(this.books_grouped[group_pointer].length < 4){
+        if(this.books_grouped[group_pointer].length < 3){
             this.books_grouped[group_pointer].push(this.books[i]);
         } else {
             group_pointer++;
@@ -94,8 +101,10 @@ class Shelf{
 
     displayRowOfBooks(){
         let row_index = 0;
+        this.addBookButtonToBooks();
         this.groupBooksByRow();
-        innerShelf.innerHTML = "";
+
+        innerShelf.textContent = "";
 
         this.books_grouped.forEach(row_of_book =>{
             const row_created = document.createElement('div');
@@ -112,13 +121,20 @@ class Shelf{
     }
 
     displayBooksPerRow(){
+        
         for(let shelf = 0; shelf < this.books_grouped.length; shelf++){
             this.books_grouped[shelf].forEach(book=>{
                 let target_row = document.getElementById(`row${shelf}`);
                 const created_book = document.createElement('div');
 
                 if(book.title === "bookAdder"){
+                    let add_book_btn_text = document.createElement('p');
+                    
+                    add_book_btn_text.innerHTML= "Add Book"
                     created_book.id = "addBook";
+                    created_book.className = "book";
+
+                    created_book.appendChild(add_book_btn_text);
                 }
                 else{
                     created_book.className = "book";
@@ -140,12 +156,12 @@ class Book{
 
 const shelfSystem = new ShelfSystem();
 let shelf1 = new Shelf('Untitled');
-let addBookButton = new Book('bookAdder');
 
-shelf1.addBook(addBookButton);
+
 shelf1.groupBooksByRow()
 shelf1.displayRowOfBooks()
 shelf1.displayBooksPerRow();
+
 
 shelfSystem.addShelf(shelf1);
 
@@ -166,7 +182,7 @@ function makeAddShelfButton(){
     const add_shelf_content = document.createElement('div');
     const add_shelf_content_text = document.createElement('p');
 
-    add_shelf_content_text.innerHTML = '+ Add new Shelf'
+    add_shelf_content_text.textContent = '+ Add new Shelf'
     add_shelf_containter.className = 'catalog-item';
     add_shelf_content.className = 'catalog-content';
     add_shelf_content.id = 'addShelfContentBtn';
@@ -192,12 +208,15 @@ function setAsActive(shelf){
 }
 
 function displaySelectedShelf(){
+
     shelf1 = shelfSystem.shelves.find(s => s.is_active);
 
     shelf1.displayRowOfBooks();
     shelf1.displayBooksPerRow();
 
-    shelfTitleText.innerHTML = shelf1.title;
+    console.log(shelf1.books)
+
+    shelfTitleText.textContent = shelf1.title;
 
     shelfTitleInput.value = "";
    
@@ -209,7 +228,7 @@ function displaySelectedShelf(){
 function displayShelvesInCatalog(){
     shelfSystem.checkActiveShelf();
     shelf_tracker = 0;
-    innerList.innerHTML = "";
+    innerList.textContent = "";
     makeAddShelfButton();
     const available_shelf = shelfSystem.shelves;
 
@@ -222,7 +241,7 @@ function displayShelvesInCatalog(){
         const shelf_title = document.createElement('p');
         const delete_shelf_btn = document.createElement('button');
 
-        shelf_title.innerHTML = shelf.title
+        shelf_title.textContent = shelf.title
 
         shelf_container.className = "catalog-item";
         shelf_content.className = "catalog-content";
@@ -277,7 +296,7 @@ function checkShelfTitle(){
     if(curr_title === "" ){
         
         shelf1.title = 'Untitled';
-        shelfTitleText.innerHTML = 'Untitled';
+        shelfTitleText.textContent = 'Untitled';
         
 
     }
@@ -289,14 +308,14 @@ function checkShelfTitle(){
 }
 
 shelfTitleInput.addEventListener('input', ()=>{
-    shelfTitleText.innerHTML = shelfTitleInput.value;
+    shelfTitleText.textContent = shelfTitleInput.value;
     checkShelfTitle();
 
 });
 
 shelfTitleInput.addEventListener('focus', ()=>{
-    if(shelfTitleText.innerHTML === 'Untitled'){
-        shelfTitleText.innerHTML = 'Enter your shelf name';
+    if(shelfTitleText.textContent === 'Untitled'){
+        shelfTitleText.textContent = 'Enter your shelf name';
     }
     else{
         shelfTitleInput.value = shelf1.title.trim();
