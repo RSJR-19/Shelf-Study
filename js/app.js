@@ -121,10 +121,14 @@ class Shelf{
             this.books_grouped[shelf].forEach(book=>{
         
                 let target_row = document.getElementById(`row${shelf}`);
+                let title = document.createElement('p');
+
                 const created_book = document.createElement('div');
                 created_book.className = "book";
                 created_book.style.backgroundColor = book.color;
+                title.textContent = book.title;
 
+                created_book.appendChild(title);
                 target_row.appendChild(created_book);
             }
             )
@@ -133,11 +137,15 @@ class Shelf{
             if(this.books_grouped[i].length !== 3){
                 let target_row = document.getElementById(`row${i}`);
                 const created_book = document.createElement('div');
+                const text = document.createElement('p');
+                
+                text.innerHTML = "+<br>Add Book"
                 created_book.id = 'addBook';
 
                 created_book.addEventListener('click', ()=> displayAddBookScreen());
 
                 target_row.appendChild(created_book);
+                created_book.appendChild(text);
 
                 return
                 
@@ -361,7 +369,7 @@ function changeColor(color){
             new_color = 'lightcoral';
             break;
         case 2:
-            new_color = 'lime';
+            new_color = 'lightgreen';
             break;
         case 3:
             new_color = 'lightblue';

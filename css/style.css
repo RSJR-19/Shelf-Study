@@ -128,6 +128,7 @@ body, html{
     align-items: center;
     overflow-wrap: anywhere;
     text-align: center;
+    border: 5px black solid;
     
     
 }
@@ -138,6 +139,10 @@ body, html{
     background-color: black;
     color: white;
     font-size: clamp(1.5rem, 1cqi, 2.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 
@@ -413,6 +418,8 @@ body, html{
     width: 40%;
     border-radius: 10px;
     border: 5px black solid;
+    font-weight: bold;
+    
 
 
 }
