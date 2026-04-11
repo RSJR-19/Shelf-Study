@@ -128,9 +128,31 @@ body, html{
     align-items: center;
     overflow-wrap: anywhere;
     text-align: center;
+    border:3px black solid;
+    border-top: 0;
+    border-bottom: 0;  
+}
+
+#viewBookBar{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.view-book-btn{
+    height: 70%;
+    width: 30%;
     border: 5px black solid;
-    
-    
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.book::-webkit-scrollbar{
+    display: none;
 }
 
 #addBook{

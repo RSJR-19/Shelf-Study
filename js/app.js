@@ -21,6 +21,10 @@ const bookCover = document.getElementById('bookCover');
 const bookCoverText = document.getElementById('bookCoverText');
 const saveBookBtn = document.getElementById('saveBookBtn');
 
+const viewBookBar = document.getElementById('viewBookBar');
+const addPageBtn = document.getElementById('addPageBtn');
+const reviewModeBtn = document.getElementById('reviewModeBtn');
+const updateBtn = document.getElementById('updateBtn');
 
 let shelf_tracker = "";
 let active_index = "";
@@ -127,6 +131,15 @@ class Shelf{
                 created_book.className = "book";
                 created_book.style.backgroundColor = book.color;
                 title.textContent = book.title;
+                
+
+                created_book.addEventListener('click',()=>{
+                    this.books.forEach(book=>{
+                        book.is_active = false;
+                    });
+                    book.is_active = true;
+                    selectedBookScreen();
+                })
 
                 created_book.appendChild(title);
                 target_row.appendChild(created_book);
@@ -152,10 +165,10 @@ class Shelf{
                 
             }
         }
-        
-        
-        
-        last_row.appendChild(add_book_button);
+       
+    }
+    getActiveBook(){
+        return this.books.find(book => book.is_active)
     }
     
 
@@ -166,6 +179,8 @@ class Book{
     constructor(title){
         this.title = title;
         this.color = "";
+        this.is_active = false;
+        
     }
 }
 
@@ -182,13 +197,36 @@ shelf.displayBooksPerRow();
 shelfSystem.addShelf(shelf);
 console.log(shelfSystem.shelves[0].title);
 
+function selectedBookScreen(){
+    displayAddBookScreen(true);
+}
 
-function displayAddBookScreen(){
+
+function displayAddBookScreen(edit_mode = false){
+    
     addBookScreen.classList.toggle('reveal');
-    bookTitleInput.value = "";
-    bookCoverText.textContent = 'Title';
-    new_color = "";
-    bookCover.style.backgroundColor = 'white';
+    if(edit_mode){
+        const shelf = shelfSystem.getActiveShelf();
+        const selected_book = shelf.getActiveBook();
+
+        bookTitleInput.value = selected_book.title;
+        bookCoverText.textContent = selected_book.title;
+        bookCover.style.backgroundColor = selected_book.color;
+
+        viewBookBar.style.display = 'flex';
+        viewBookBar.style.backgroundColor = selected_book.color;
+
+
+
+
+    }
+    else{
+        bookTitleInput.value = "";
+        bookCoverText.textContent = 'Title';
+        new_color = "";
+        bookCover.style.backgroundColor = 'white';
+    }
+    
     
 }
 
@@ -376,6 +414,7 @@ function changeColor(color){
             break;
     }
     bookCover.style.backgroundColor = new_color;
+    viewBookBar.style.backgroundColor = new_color;
     return new_color;
 }
 
@@ -406,6 +445,27 @@ saveBookBtn.addEventListener('click', ()=>{
         addBookScreen.classList.toggle('reveal');
         displaySelectedShelf();
     }
+});
+
+updateBtn.addEventListener('click', ()=>{
+    const shelf = shelfSystem.getActiveShelf();
+    const active_book = shelf.getActiveBook();
+
+    if(bookTitleInput.value.trim() === ""){
+        alert('Book title cannot be updated to empty.')
+        bookTitleInput.focus()
+    }
+    else{
+        active_book.color = new_color;
+        active_book.title = bookTitleInput.value.trim();
+        alert(`${active_book.title} successfully updated!`);
+
+        addBookScreen.classList.toggle('reveal');
+        displaySelectedShelf();
+    }
+
+
+
 })
 
 
