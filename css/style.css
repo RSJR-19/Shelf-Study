@@ -473,6 +473,7 @@ body, html{
 
 
 #tableOfContentScreen{
+    position: relative;
     height: 100%;
     width: 100%;
     display: flex;
@@ -547,6 +548,25 @@ body, html{
     border-radius: 10px;
     font-weight: bold;
     background-color: white;
+}
+
+#actualPageScreen{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(255, 255, 0, 0.456);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#questionPage, #answerPage{
+    background-color: white;
+    height: 100%;
+    width: 50%;
+}
+#questionPage{
+    background-color: red;
 }
 
 #addPageItem{

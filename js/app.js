@@ -32,6 +32,10 @@ const tableOfContentList = document.getElementById('tableOfContentList');
 const tocBackBtn = document.getElementById('tocBackBtn');
 const tocSaveBtn = document.getElementById('tocSaveBtn');
 
+const actualPageScreen = document.getElementById('actualPageScreen');
+
+
+let pagePreviewMode = false;
 let shelf_tracker = "";
 let active_index = "";
 let new_color = "";
@@ -211,6 +215,42 @@ shelf.displayBooksPerRow();
 shelfSystem.addShelf(shelf);
 console.log(shelfSystem.shelves[0].title);
 
+function manualAdd(){
+    pagePreviewMode = true;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    actualPageScreen.style.display = 'flex';
+    actualPageScreen.innerHTML = "";
+
+    const question_page = document.createElement('div');
+    const answer_page = document.createElement('div');
+
+    if(width < height){
+        actualPageScreen.style.flexDirection = 'column';
+
+        question_page.style.height = `50%`;
+        question_page.style.width = `100%`;
+        answer_page.style.height = `50%`;
+        answer_page.style.width = `100%`;
+    }
+    else{
+        actualPageScreen.style.flexDirection = 'row';
+        
+        question_page.style.width = `50%`;
+        question_page.style.height = `100%`;
+        answer_page.style.width = `50%`;
+        answer_page.style.height = `100%`;
+    }
+
+    question_page.id = 'questionPage';
+    answer_page.id = 'answerPage';
+
+    actualPageScreen.appendChild(question_page);
+    actualPageScreen.appendChild(answer_page);
+    
+}
+
 function displayActiveBookScreen(){
     addBookScreen.style.display = 'flex';
 
@@ -278,9 +318,14 @@ function displayTableOfContent(){
     import_add_btn.className = 'table-item';
     import_add_btn.textContent = 'Import CSV';
 
+    manual_add_btn.addEventListener('click', ()=> manualAdd());
+    import_add_btn.addEventListener('click', ()=>importSCV());
+
     add_page_button.appendChild(add_page_text);
     add_page_button.appendChild(manual_add_btn);
     add_page_button.appendChild(import_add_btn);
+
+
     
     tableOfContentList.appendChild(add_page_button);
     
@@ -540,6 +585,13 @@ updateBtn.addEventListener('click', ()=>{
         openBookScreen.style.display = 'none';
     })
 
+window.addEventListener('resize', ()=>{
+    if(pagePreviewMode){
+        manualAdd();
+    }
+
+})
+    
 
 
 
