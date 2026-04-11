@@ -26,6 +26,12 @@ const addPageBtn = document.getElementById('addPageBtn');
 const reviewModeBtn = document.getElementById('reviewModeBtn');
 const updateBtn = document.getElementById('updateBtn');
 
+const openBookScreen = document.getElementById('openBookScreen');
+const tableOfContentScreen = document.getElementById('tableOfContentScreen');
+const tableOfContentList = document.getElementById('tableOfContentList');
+const tocBackBtn = document.getElementById('tocBackBtn');
+const tocSaveBtn = document.getElementById('tocSaveBtn');
+
 let shelf_tracker = "";
 let active_index = "";
 let new_color = "";
@@ -180,7 +186,15 @@ class Book{
         this.title = title;
         this.color = "";
         this.is_active = false;
+        this.pages = [];
         
+    }
+}
+
+class Page{
+    constructor(question, answer){
+        this.question = question;
+        this.answer = answer;
     }
 }
 
@@ -215,7 +229,7 @@ function displayActiveBookScreen(){
     viewBookBar.style.display = 'flex';
     viewBookBar.style.backgroundColor = selected_book.color;
 
-    }, 100)
+    }, 50)
     
 
 }
@@ -232,8 +246,45 @@ function displayAddBookScreen(){
         new_color = "";
         bookCover.style.backgroundColor = 'white';
             
-        }, 100)
+        }, 50)
         
+}
+
+function displayTableOfContent(){
+    tableOfContentList.textContent = "";
+    openBookScreen.style.display = 'flex';
+    const shelf = shelfSystem.getActiveShelf();
+    const book = shelf.getActiveBook();
+
+    openBookScreen.style.backgroundColor = book.color;
+
+    for(let i = 0; i < book.pages; i++){
+        
+
+    }
+    let add_page_button = document.createElement('div');
+    let add_page_text = document.createElement('h1');
+    let manual_add_btn = document.createElement('button');
+    let import_add_btn = document.createElement('button');
+
+    add_page_text.textContent = 'Add new page';
+    add_page_button.className = 'table-item';
+    add_page_button.id = 'addPageItem';
+    add_page_button.style.backgroundColor = book.color;
+    manual_add_btn.id = 'manualAddBtn';
+    manual_add_btn.className = 'table-item';
+    manual_add_btn.textContent = 'Manual add'
+    import_add_btn.id = 'importCSVBtn';
+    import_add_btn.className = 'table-item';
+    import_add_btn.textContent = 'Import CSV';
+
+    add_page_button.appendChild(add_page_text);
+    add_page_button.appendChild(manual_add_btn);
+    add_page_button.appendChild(import_add_btn);
+    
+    tableOfContentList.appendChild(add_page_button);
+    
+
 }
 
 
@@ -458,6 +509,11 @@ saveBookBtn.addEventListener('click', ()=>{
     }
 });
 
+addPageBtn.addEventListener('click', ()=>{
+    displayTableOfContent();
+})
+
+
 updateBtn.addEventListener('click', ()=>{
     const shelf = shelfSystem.getActiveShelf();
     const active_book = shelf.getActiveBook();
@@ -478,9 +534,11 @@ updateBtn.addEventListener('click', ()=>{
         displaySelectedShelf();
     }
 
+});
 
-
-})
+    tocBackBtn.addEventListener('click', ()=>{
+        openBookScreen.style.display = 'none';
+    })
 
 
 

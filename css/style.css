@@ -60,7 +60,8 @@ body, html{
     border-radius: 10px;
     top: 0;
     transform: translateY(-130%);
-    width: 110%;
+    width: 100%;
+    
     height: max(12cqw, 12cqh);
     max-height: 100px;
     
@@ -334,7 +335,9 @@ body, html{
    width: 100%;
    background-color: rgba(255, 255, 0, 0.311);
    position: absolute;
-
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
    display: none;
    justify-content: center;
    align-items: center;
@@ -435,15 +438,119 @@ body, html{
     gap: 20px;
 }
 
+
+
 #saveBookBtn{
     height: 60%;
     width: 40%;
     border-radius: 10px;
     border: 5px black solid;
     font-weight: bold;
+}
+
+#openBookScreen{
+    height: 100%;
+    max-width: 650px;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(255, 0, 0, 0.885);
     
+    display: none;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#bookBody{
+    height: 90%;
+    width: 90%;
+    background-color: white;
+    border: 10px black solid;
+    border-radius: 10px;
+
+}
 
 
+
+#tableOfContentScreen{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: clamp(1rem, 2vw, 2.rem);
+}
+
+#tableOfContentScreen h1{
+    margin: 0;
+    height: 10%;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#tableOfContentList{
+    height: 80%;
+    width: 100%;
+    background-color: white;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+}
+
+#tableOfContentBar{
+    height: 10%;
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+#tocSaveBtn, #tocBackBtn{
+    font-weight: bold;
+    height: 70%;
+    width: 30%;
+    max-width: 100px;
+    border: 5px black solid;
+    border-radius: 10px;
+}
+
+.table-item{
+    height: 50%;
+    width: 100%;
+    background-color: green;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-direction: column;
+    
+}
+
+
+
+#manualAddBtn, #importCSVBtn{
+    height: 20%;
+    width: 50%;
+    max-width: 150px;
+    border: 5px black solid;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: white;
+}
+
+#addPageItem{
+    border-radius: 10px;
 }
 
 .shelf-menu.open{
