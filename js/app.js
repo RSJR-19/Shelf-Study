@@ -1,3 +1,5 @@
+
+
 const shelfTitle = document.getElementById('shelfTitle');
 const shelfTitleInput = document.getElementById('shelfTitleInput');
 const shelfTitleText = document.getElementById('shelfTitleText');
@@ -51,16 +53,22 @@ class ShelfSystem{
 class Shelf{
     constructor(title){
         this.title = title;
-        this.rows = 3;
-        this.books = [1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9];
+        this.books = [];
         this.books_grouped = [[],[],[]];
         
         this.index_position = 0;
         this.is_active = false;
     }
 
+    addBook(book){
+        this.books.push(book);
+    }
+
+    
     sortBookTitles(){
+        let add_book_button = this.books.pop();
         this.books.sort((a,b) => a.title.localeCompare(b.title));
+        this.books.push(add_book_button);
 
     }
 
@@ -85,6 +93,7 @@ class Shelf{
     }
 
     displayRowOfBooks(){
+        let row_index = 0;
         this.groupBooksByRow();
         innerShelf.innerHTML = "";
 
@@ -92,10 +101,32 @@ class Shelf{
             const row_created = document.createElement('div');
 
             row_created.className = 'row';
+            row_created.id = `row${row_index}`;
             innerShelf.appendChild(row_created);
+
+            row_index++
 
 
         })
+        innerShelf.scrollTop = 0;
+    }
+
+    displayBooksPerRow(){
+        for(let shelf = 0; shelf < this.books_grouped.length; shelf++){
+            this.books_grouped[shelf].forEach(book=>{
+                let target_row = document.getElementById(`row${shelf}`);
+                const created_book = document.createElement('div');
+
+                if(book.title === "bookAdder"){
+                    created_book.id = "addBook";
+                }
+                else{
+                    created_book.className = "book";
+                }
+                target_row.appendChild(created_book);
+            }
+            )
+        }
     }
 
     
@@ -109,10 +140,15 @@ class Book{
 
 const shelfSystem = new ShelfSystem();
 let shelf1 = new Shelf('Untitled');
+let addBookButton = new Book('bookAdder');
+
+shelf1.addBook(addBookButton);
 shelf1.groupBooksByRow()
 shelf1.displayRowOfBooks()
+shelf1.displayBooksPerRow();
 
 shelfSystem.addShelf(shelf1);
+
 
 
 
@@ -159,8 +195,8 @@ function displaySelectedShelf(){
     shelf1 = shelfSystem.shelves.find(s => s.is_active);
 
     shelf1.displayRowOfBooks();
-    
-    console.log(shelf1)
+    shelf1.displayBooksPerRow();
+
     shelfTitleText.innerHTML = shelf1.title;
 
     shelfTitleInput.value = "";

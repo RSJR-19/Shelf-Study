@@ -115,10 +115,20 @@ body, html{
     top: -25%;
     
 }
+.book{
+    width: 25%;
+    height: 100%;
+    background-color: white;
+}
+
+#addBook{
+    width: 25%;
+    height: 100%;
+    background-color: black;
+}
 
 .row{
     height: 34%;
-    
     width: 100%;
     background-color: yellow;
     flex-shrink: 0;
