@@ -310,6 +310,9 @@ body, html{
    justify-content: center;
    align-items: center;
    flex-direction: column;
+   transform: translateX(100%);
+
+   transition: all 0.5s ease-in-out;
 
 }
 
@@ -324,13 +327,32 @@ body, html{
     justify-content: center;
     align-items: center;
     gap: 10px;
+    position: relative;
     
 
 
 }
 
+#addBookExitBtn{
+    position: absolute;
+    background-color: red;
+    height: 60%;
+    max-height: 50px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    color: white;
+    font-weight: bold;
+    border: 5px black solid;
+    font-size: larger;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+
+
+}
+
 #bookTitleInput{
-    position: relative;
+    
     width: 50%;
     height: 50%;
     border: 5px black solid;
@@ -379,4 +401,8 @@ body, html{
 
 .add-shelf-screen.open{
     left: 0;
+}
+
+#addBookScreen.reveal{
+    transform: translateX(0);
 }

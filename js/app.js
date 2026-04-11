@@ -15,6 +15,7 @@ const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 const innerShelf = document.getElementById('innerShelf');
 
 const addBookScreen = document.getElementById('addBookScreen');
+const addBookExitBtn = document.getElementById('addBookExitBtn');
 const bookTitleInput = document.getElementById('bookTitleInput');
 const bookCover = document.getElementById('bookCover');
 const bookCoverText = document.getElementById('bookCoverText');
@@ -178,6 +179,7 @@ shelfSystem.addShelf(shelf1);
 
 
 function displayAddBookScreen(){
+    addBookScreen.classList.toggle('reveal');
     
 }
 
@@ -373,6 +375,9 @@ bookTitleInput.addEventListener('input', ()=>{
 
 });
 
+addBookExitBtn.addEventListener('click', ()=>{
+    addBookScreen.classList.toggle('reveal');
+})
 
 
 
