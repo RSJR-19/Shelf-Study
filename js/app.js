@@ -35,24 +35,16 @@ class ShelfSystem{
     }
 
     checkActiveShelf(){
-        active_index = 0;
-        let counter = 0;
-        let active_found = false;
-        this.shelves.forEach(shelf =>{
-            if(shelf.is_active){
-                active_found = true;
-                active_index = counter;
+        let hasActive = this.shelves.some(shelf => shelf.is_active);
 
-            }
-            counter++;
-        });
-        if(!active_found){
+        if(!hasActive && this.shelves.length > 0){
             this.shelves[0].is_active = true;
-            active_found = true;
+        }
+    }
 
-        };
-
-    };
+    getActiveShelf(){
+        return this.shelves.find(shelf => shelf.is_active);
+    }
 
     addShelf(shelf){
         this.shelves.push(shelf);
