@@ -46,19 +46,20 @@ let new_color = "";
 class ShelfSystem{
     constructor(){
         this.shelves = [];
+        this.activeShelfId = null;
         
     }
 
     checkActiveShelf(){
-        let hasActive = this.shelves.some(shelf => shelf.is_active);
+        const active_exists = this.shelves.some(shelf => shelf.id === this.activeShelfId);
 
-        if(!hasActive && this.shelves.length > 0){
-            this.shelves[0].is_active = true;
+        if(!active_exists && this.shelves.length > 0){
+            this.activeShelfId = this.shelves[0].id;
         }
     }
 
     getActiveShelf(){
-        return this.shelves.find(shelf => shelf.is_active);
+        return this.shelves.find(shelf => shelf.id === this.activeShelfId);
     }
 
     addShelf(shelf){
@@ -68,13 +69,14 @@ class ShelfSystem{
 
 class Shelf{
     constructor(title){
+        this.id = crypto.randomUUID();
         this.title = title;
         this.books = [];
         this.books_grouped = [[],[],[]];
         this.activeBookId = null;
         
         this.index_position = 0;
-        this.is_active = false;
+        
     }
 
     
@@ -214,8 +216,8 @@ class Page{
 
 const shelfSystem = new ShelfSystem();
 const shelf = new Shelf('Untitled');
-shelf.is_active = true;
 
+shelfSystem.activeShelfId = shelf.id;
 
 shelf.groupBooksByRow()
 shelf.displayRowOfBooks()
@@ -376,12 +378,7 @@ function makeAddShelfButton(){
 }
 
 function setAsActive(shelf){
-    shelfSystem.shelves.forEach(stored_shelf =>{
-        stored_shelf.is_active = false;
-
-    });
-    shelf.is_active = true;
-
+    shelfSystem.activeShelfId = shelf.id;
 }
 
 function displaySelectedShelf(){
@@ -424,7 +421,7 @@ function displayShelvesInCatalog(){
         shelf_content.className = "catalog-content";
         delete_shelf_btn.className = "delete-shelf-btn";
 
-        if(shelf.is_active){
+        if(shelf.id === shelfSystem.activeShelfId){
             shelf_content.style.backgroundColor = 'orange';
         }
         else{
