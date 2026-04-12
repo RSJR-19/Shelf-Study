@@ -71,6 +71,7 @@ class Shelf{
         this.title = title;
         this.books = [];
         this.books_grouped = [[],[],[]];
+        this.activeBookId = null;
         
         this.index_position = 0;
         this.is_active = false;
@@ -150,10 +151,7 @@ class Shelf{
                 
 
                 created_book.addEventListener('click',()=>{
-                    this.books.forEach(book=>{
-                        book.is_active = false;
-                    });
-                    book.is_active = true;
+                    this.activeBookId = book.id;
                     displayActiveBookScreen();
                 })
 
@@ -184,7 +182,7 @@ class Shelf{
        
     }
     getActiveBook(){
-        return this.books.find(book => book.is_active)
+        return this.books.find(book => book.id === this.activeBookId);
     }
     
 
@@ -196,7 +194,6 @@ class Book{
         this.id = crypto.randomUUID();
         this.title = title;
         this.color = "";
-        this.is_active = false;
         this.pages = [];
         this.index_position = "";
         
