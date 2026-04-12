@@ -37,6 +37,7 @@ const actualPageScreen = document.getElementById('actualPageScreen');
 
 const addPageButtonBar = document.getElementById('addPageButtonBar');
 const addPageBarBackBtn = document.getElementById('addPageBarBackBtn');
+const addPageBarAddBtn = document.getElementById('addPageBarAddBtn');
 
 
 let editPagePreviewMode = false;
@@ -244,7 +245,7 @@ function manualAdd(){
     actualPageScreen.innerHTML = "";
 
     addPageButtonBar.style.display = 'flex';
-    
+
     const question_page = document.createElement('div');
     const divider = document.createElement('div');
     const answer_page = document.createElement('div');
@@ -667,14 +668,25 @@ addPageBarBackBtn.addEventListener('click', ()=>{
     actualPageScreen.style.display = 'none';
     addPageButtonBar.style.display = 'none';
     
+});
+
+addPageBarAddBtn.addEventListener('click', ()=>{
+    const question = document.getElementById('questionPageInput');
+    const answer = document.getElementById('answerPageInput');
+
+    console.log(question.value, answer.value)
 })
+
+
 
 window.addEventListener('resize', ()=>{
     if(editPagePreviewMode){
         manualAdd();
     }
 
-})
+});
+
+
     
 
 
