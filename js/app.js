@@ -194,6 +194,7 @@ class Shelf{
 class Book{
     constructor(title){
         this.id = crypto.randomUUID();
+        this.activePage = null;
         this.title = title;
         this.color = "";
         this.pages = [];
@@ -203,6 +204,10 @@ class Book{
 
     addPage(page){
         this.pages.push(page)
+    }
+
+    getActivePage(){
+        return this.pages.find(page => page.id === this.activePage);
     }
 }
 
@@ -236,7 +241,10 @@ function manualAdd(){
     actualPageScreen.innerHTML = "";
 
     const question_page = document.createElement('div');
+    const divider = document.createElement('div');
     const answer_page = document.createElement('div');
+
+    divider.style.backgroundColor = 'black';
 
     if(width < height){
         actualPageScreen.style.flexDirection = 'column';
@@ -245,21 +253,60 @@ function manualAdd(){
         question_page.style.width = `100%`;
         answer_page.style.height = `50%`;
         answer_page.style.width = `100%`;
+        divider.style.width = "100%";
+        divider.style.height = "1%";
+        
     }
     else{
         actualPageScreen.style.flexDirection = 'row';
 
         question_page.style.width = `50%`;
         question_page.style.height = `100%`;
+        
         answer_page.style.width = `50%`;
         answer_page.style.height = `100%`;
+        divider.style.height = "100%";
+        divider.style.width = "1%";
+        
     }
 
     question_page.id = 'questionPage';
     answer_page.id = 'answerPage';
 
+    const question_label = document.createElement('div');
+    const answer_label = document.createElement('div');
+    const question_text = document.createElement('p');
+    const answer_text = document.createElement('p');
+
+
+    const question_page_input = document.createElement('textarea');
+    const answer_page_input = document.createElement('textarea');
+
+    question_label.className = 'page-label';
+    answer_label.className = 'page-label';
+
+    question_text.textContent = 'QUESTION:'
+    answer_text.textContent = 'ANSWER:'
+   question_page_input.placeholder = 'Enter question here...'
+   answer_page_input.placeholder = 'Enter answer here...'
+    question_page_input.id = 'questionPageInput';
+    answer_page_input.id = `answerPageInput`;
+    question_page.maxLength = 120;
+    answer_page.maxLength = 400;
+
+    question_label.appendChild(question_text);
+    answer_label.appendChild(answer_text);
+    question_page.appendChild(question_label);
+    question_page.appendChild(question_page_input);
+    answer_page.appendChild(answer_label);
+    answer_page.appendChild(answer_page_input);
+
     actualPageScreen.appendChild(question_page);
+    actualPageScreen.appendChild(divider);
     actualPageScreen.appendChild(answer_page);
+
+
+
     
 }
 

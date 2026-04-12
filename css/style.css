@@ -3,6 +3,11 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+input{
+    caret-color: transparent;
+    text-shadow: 0 0 0 black;
+}
+
 body, html{
     font-size: 16px;
     padding: 0;
@@ -561,13 +566,42 @@ body, html{
 }
 
 #questionPage, #answerPage{
+    position: relative;
     background-color: white;
-    height: 100%;
-    width: 50%;
+    container-type: inline-size;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+   flex-direction: column;
+    overflow-y: auto;
+    overflow-wrap: anywhere;
+    font-size: clamp(1rem, 10cqi, 2rem);
 }
-#questionPage{
-    background-color: red;
+
+.page-label{
+    height: 20%;
+    width: 100%;
+    background-color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: clamp(1rem, 10cqi, 1.5rem);
+    
 }
+
+#questionPageInput, #answerPageInput{
+    width: 100%;
+    height: 80%;
+    resize: none;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    padding: 5%;
+    
+
+}
+
+
 
 #addPageItem{
     border-radius: 10px;
