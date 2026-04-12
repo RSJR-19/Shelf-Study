@@ -300,6 +300,35 @@ function manualAdd(){
     question_page.maxLength = 120;
     answer_page.maxLength = 400;
 
+    question_page_input.addEventListener('keydown',(e) =>{
+        if(e.key === 'Tab'){
+            e.preventDefault();
+            answer_page_input.focus();
+        }
+    })
+
+    answer_page_input.addEventListener('keydown',(e) =>{
+        if(e.key === 'Tab'){
+            e.preventDefault();
+
+            if(question_page_input.value.trim() === ""){
+        alert('Please enter a question before adding another page.');
+        question_page_input.focus();
+    }
+    else if(answer_page_input.value.trim() === ""){
+        alert('Please enter an answer before adding  another page.');
+        answer_page_input.focus();
+    }
+    else{
+        const shelf = shelfSystem.getActiveShelf();
+        const book = shelf.getActiveBook();
+        const new_page = new Page(question_page_input.value.trim(), answer_page_input.value.trim());
+        book.addPage(new_page);
+        manualAdd();
+    }
+        }
+    })
+
     question_label.appendChild(question_text);
     answer_label.appendChild(answer_text);
     question_page.appendChild(question_label);
@@ -311,6 +340,7 @@ function manualAdd(){
     actualPageScreen.appendChild(divider);
     actualPageScreen.appendChild(answer_page);
 
+    question_page_input.focus();
 
 
     
@@ -356,17 +386,23 @@ function displayBookControlScreen(){
 }
 
 function displayTableOfContent(){
-    tableOfContentList.textContent = "";
+    tableOfContentList.innerHTML = "";
     openBookScreen.style.display = 'flex';
     const shelf = shelfSystem.getActiveShelf();
     const book = shelf.getActiveBook();
 
     openBookScreen.style.backgroundColor = book.color;
 
-    for(let i = 0; i < book.pages; i++){
-        
+    for(let i = 0; i < book.pages.length; i++){
+        let page_item = document.createElement('div');
+
+        page_item.className = 'table-item';
+        page_item.textContent = `${book.pages[i].question}${book.pages[i].answer}`;
+
+        tableOfContentList.appendChild(page_item);
 
     }
+
     let add_page_button = document.createElement('div');
     let add_page_text = document.createElement('h1');
     let manual_add_btn = document.createElement('button');
@@ -393,6 +429,7 @@ function displayTableOfContent(){
 
     
     tableOfContentList.appendChild(add_page_button);
+    tableOfContentList.scrollTop = tableOfContentList.scrollHeight;
     
 
 }
@@ -667,6 +704,8 @@ updateBtn.addEventListener('click', ()=>{
 addPageBarBackBtn.addEventListener('click', ()=>{
     actualPageScreen.style.display = 'none';
     addPageButtonBar.style.display = 'none';
+    displayTableOfContent();
+     editPagePreviewMode = false;
     
 });
 
@@ -674,7 +713,21 @@ addPageBarAddBtn.addEventListener('click', ()=>{
     const question = document.getElementById('questionPageInput');
     const answer = document.getElementById('answerPageInput');
 
-    console.log(question.value, answer.value)
+    if(question.value.trim() === ""){
+        alert('Please enter a question before adding another page.');
+        question.focus();
+    }
+    else if(answer.value.trim() === ""){
+        alert('Please enter an answer before adding  another page.');
+        answer.focus();
+    }
+    else{
+        const shelf = shelfSystem.getActiveShelf();
+        const book = shelf.getActiveBook();
+        const new_page = new Page(question.value.trim(), answer.value.trim());
+        book.addPage(new_page);
+        manualAdd();
+    }
 })
 
 
