@@ -193,6 +193,7 @@ class Shelf{
 
 class Book{
     constructor(title){
+        this.id = crypto.randomUUID();
         this.title = title;
         this.color = "";
         this.is_active = false;
@@ -200,10 +201,15 @@ class Book{
         this.index_position = "";
         
     }
+
+    addPage(page){
+        this.pages.push(page)
+    }
 }
 
 class Page{
     constructor(question, answer){
+        this.id = crypto.randomUUID();
         this.question = question;
         this.answer = answer;
     }
@@ -599,11 +605,10 @@ updateBtn.addEventListener('click', ()=>{
         let confirmation = confirm(`Are you sure you want to delete this book?\n\nTitle: ${book.title}\nPages: ${book.pages.length}`);
 
         if(confirmation){
-            const book_position = shelf.books.indexOf(book);
             alert(`${book.title} successfully deleted`);
             openBookScreen.style.display = 'none';
             bookControlScreen.classList.toggle('reveal');
-            shelf.books.splice(book_position, 1);
+            shelf.books = shelf.books.filter(available_book => available_book.id !== book.id);
             displaySelectedShelf();
             
             
