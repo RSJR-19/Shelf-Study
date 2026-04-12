@@ -330,7 +330,7 @@ body, html{
 
 }
 
-#addBookScreen{
+#bookControlScreen{
    height: 100%;
    width: 100%;
    background-color: rgba(255, 255, 0, 0.311);
@@ -516,7 +516,7 @@ body, html{
 
 }
 
-#tocSaveBtn, #tocBackBtn, #deleteBookBtn{
+#tocSaveBtn, #tocBackBtn,#reviewModeBtn{
     font-weight: bold;
     height: 70%;
     width: 30%;
@@ -581,6 +581,6 @@ body, html{
     left: 0;
 }
 
-#addBookScreen.reveal{
+#bookControlScreen.reveal{
     transform: translateX(0);
 }

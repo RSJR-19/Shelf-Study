@@ -14,7 +14,7 @@ const addShelfContentBtn = document.getElementById('addShelfContentBtn');
 
 const innerShelf = document.getElementById('innerShelf');
 
-const addBookScreen = document.getElementById('addBookScreen');
+const bookControlScreen = document.getElementById('bookControlScreen');
 const addBookExitBtn = document.getElementById('addBookExitBtn');
 const bookTitleInput = document.getElementById('bookTitleInput');
 const bookCover = document.getElementById('bookCover');
@@ -171,7 +171,7 @@ class Shelf{
                 text.innerHTML = "+<br>Add Book"
                 made_book.id = 'addBook';
 
-                made_book.addEventListener('click', ()=> displayAddBookScreen());
+                made_book.addEventListener('click', ()=> displayBookControlScreen());
 
                 target_row.appendChild(made_book);
                 made_book.appendChild(text);
@@ -259,10 +259,10 @@ function manualAdd(){
 }
 
 function displayActiveBookScreen(){
-    addBookScreen.style.display = 'flex';
+    bookControlScreen.style.display = 'flex';
 
     setTimeout(()=>{
-        addBookScreen.classList.toggle('reveal');
+        bookControlScreen.classList.toggle('reveal');
 
     const shelf = shelfSystem.getActiveShelf();
     const selected_book = shelf.getActiveBook();
@@ -282,12 +282,12 @@ function displayActiveBookScreen(){
 }
 
 
-function displayAddBookScreen(){
-        addBookScreen.style.display = 'flex';
+function displayBookControlScreen(){
+        bookControlScreen.style.display = 'flex';
 
         setTimeout(()=>{
             viewBookBar.style.display = 'none';
-        addBookScreen.classList.toggle('reveal');
+        bookControlScreen.classList.toggle('reveal');
         bookTitleInput.value = "";
         bookCoverText.textContent = 'Title';
         new_color = "";
@@ -399,7 +399,7 @@ function displaySelectedShelf(){
 
 
 function displayShelvesInCatalog(){
-    addBookScreen.style.display = 'flex';
+    bookControlScreen.style.display = 'flex';
     shelfSystem.checkActiveShelf();
     shelf_tracker = 0;
     innerList.textContent = "";
@@ -535,9 +535,9 @@ bookTitleInput.addEventListener('input', ()=>{
 });
 
 addBookExitBtn.addEventListener('click', ()=>{
-    addBookScreen.classList.toggle('reveal');
+    bookControlScreen.classList.toggle('reveal');
     setTimeout(()=>{
-        addBookScreen.style.display = 'none';
+        bookControlScreen.style.display = 'none';
 
     },500)
 })
@@ -556,7 +556,7 @@ saveBookBtn.addEventListener('click', ()=>{
         let new_book = new Book(bookTitleInput.value.trim());
         new_book.color = new_color;
         shelf.addBook(new_book);
-        addBookScreen.classList.toggle('reveal');
+        bookControlScreen.classList.toggle('reveal');
         displaySelectedShelf();
     }
 });
@@ -582,7 +582,7 @@ updateBtn.addEventListener('click', ()=>{
         active_book.title = bookTitleInput.value.trim();
         alert(`Book successfully updated!\n\nTitle Changes:\n${title_before} => ${active_book.title}\n\nColor Changes:\n${color_before} => ${active_book.color}`);
 
-        addBookScreen.classList.toggle('reveal');
+        bookControlScreen.classList.toggle('reveal');
         displaySelectedShelf();
     }
 
@@ -599,10 +599,11 @@ updateBtn.addEventListener('click', ()=>{
         let confirmation = confirm(`Are you sure you want to delete this book?\n\nTitle: ${book.title}\nPages: ${book.pages.length}`);
 
         if(confirmation){
+            const book_position = shelf.books.indexOf(book);
             alert(`${book.title} successfully deleted`);
             openBookScreen.style.display = 'none';
-            addBookScreen.classList.toggle('reveal');
-            shelf.books.splice(book.index_position, 1);
+            bookControlScreen.classList.toggle('reveal');
+            shelf.books.splice(book_position, 1);
             displaySelectedShelf();
             
             
