@@ -31,11 +31,12 @@ const tableOfContentScreen = document.getElementById('tableOfContentScreen');
 const tableOfContentList = document.getElementById('tableOfContentList');
 const tocBackBtn = document.getElementById('tocBackBtn');
 const tocSaveBtn = document.getElementById('tocSaveBtn');
+const deleteBookBtn = document.getElementById('deleteBookBtn');
 
 const actualPageScreen = document.getElementById('actualPageScreen');
 
 
-let pagePreviewMode = false;
+let editPagePreviewMode = false;
 let shelf_tracker = "";
 let active_index = "";
 let new_color = "";
@@ -132,14 +133,19 @@ class Shelf{
     displayBooksPerRow(){
 
         for(let shelf = 0; shelf < this.books_grouped.length; shelf++){
+            let book_index_position = 0;
             this.books_grouped[shelf].forEach(book=>{
-        
+                
+                book.index_position = book_index_position;
+                book_index_position++;
+
                 let target_row = document.getElementById(`row${shelf}`);
                 let title = document.createElement('p');
 
                 const created_book = document.createElement('div');
                 created_book.className = "book";
                 created_book.style.backgroundColor = book.color;
+
                 title.textContent = book.title;
                 
 
@@ -191,6 +197,7 @@ class Book{
         this.color = "";
         this.is_active = false;
         this.pages = [];
+        this.index_position = "";
         
     }
 }
@@ -216,7 +223,7 @@ shelfSystem.addShelf(shelf);
 console.log(shelfSystem.shelves[0].title);
 
 function manualAdd(){
-    pagePreviewMode = true;
+    editPagePreviewMode = true;
     const width = window.innerWidth;
     const height = window.innerHeight;
 
@@ -236,7 +243,7 @@ function manualAdd(){
     }
     else{
         actualPageScreen.style.flexDirection = 'row';
-        
+
         question_page.style.width = `50%`;
         question_page.style.height = `100%`;
         answer_page.style.width = `50%`;
@@ -585,8 +592,27 @@ updateBtn.addEventListener('click', ()=>{
         openBookScreen.style.display = 'none';
     })
 
+    deleteBookBtn.addEventListener('click', ()=>{
+        const shelf = shelfSystem.getActiveShelf();
+        const book = shelf.getActiveBook();
+
+        let confirmation = confirm(`Are you sure you want to delete this book?\n\nTitle: ${book.title}\nPages: ${book.pages.length}`);
+
+        if(confirmation){
+            alert(`${book.title} successfully deleted`);
+            openBookScreen.style.display = 'none';
+            addBookScreen.classList.toggle('reveal');
+            shelf.books.splice(book.index_position, 1);
+            displaySelectedShelf();
+            
+            
+
+        }
+
+    });
+
 window.addEventListener('resize', ()=>{
-    if(pagePreviewMode){
+    if(editPagePreviewMode){
         manualAdd();
     }
 

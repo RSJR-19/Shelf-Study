@@ -516,7 +516,7 @@ body, html{
 
 }
 
-#tocSaveBtn, #tocBackBtn{
+#tocSaveBtn, #tocBackBtn, #deleteBookBtn{
     font-weight: bold;
     height: 70%;
     width: 30%;
