@@ -40,6 +40,7 @@ const addPageBarBackBtn = document.getElementById('addPageBarBackBtn');
 const addPageBarAddBtn = document.getElementById('addPageBarAddBtn');
 
 
+let lastWidth = window.innerWidth;
 let editPagePreviewMode = false;
 let shelf_tracker = "";
 let active_index = "";
@@ -732,13 +733,17 @@ addPageBarAddBtn.addEventListener('click', ()=>{
 
 
 
+
+
 window.addEventListener('resize', ()=>{
-    if(editPagePreviewMode){
-        manualAdd();
+    if (window.innerWidth !== lastWidth) {
+        lastWidth = window.innerWidth;
+
+        if(editPagePreviewMode){
+            manualAdd();
+        }
     }
-
 });
-
 
     
 
