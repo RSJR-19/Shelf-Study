@@ -35,6 +35,9 @@ const deleteBookBtn = document.getElementById('deleteBookBtn');
 
 const actualPageScreen = document.getElementById('actualPageScreen');
 
+const addPageButtonBar = document.getElementById('addPageButtonBar');
+const addPageBarBackBtn = document.getElementById('addPageBarBackBtn');
+
 
 let editPagePreviewMode = false;
 let shelf_tracker = "";
@@ -240,6 +243,8 @@ function manualAdd(){
     actualPageScreen.style.display = 'flex';
     actualPageScreen.innerHTML = "";
 
+    addPageButtonBar.style.display = 'flex';
+    
     const question_page = document.createElement('div');
     const divider = document.createElement('div');
     const answer_page = document.createElement('div');
@@ -657,6 +662,12 @@ updateBtn.addEventListener('click', ()=>{
         }
 
     });
+
+addPageBarBackBtn.addEventListener('click', ()=>{
+    actualPageScreen.style.display = 'none';
+    addPageButtonBar.style.display = 'none';
+    
+})
 
 window.addEventListener('resize', ()=>{
     if(editPagePreviewMode){
